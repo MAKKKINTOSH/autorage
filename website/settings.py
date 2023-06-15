@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'autorage.apps.AutorageConfig'
 ]
 
 MIDDLEWARE = [
@@ -73,10 +74,16 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+from website.dbdata import *
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': host,
+        'USER': user,
+        'PASSWORD': password,
+        'NAME': dbname,
+        'PORT': port,
     }
 }
 
