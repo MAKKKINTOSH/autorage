@@ -1,0 +1,16 @@
+div{
+    margin: 5px 0 0 5px;
+}
+span{
+    margin: 10px 0 0 10px;
+}
+img{
+    max-height: 200px;
+}
+body{
+    background: white url("images/rayan.jpg") no-repeat;
+    color: yellow;
+}
+h1{
+    color: deeppink;
+}
