@@ -38,6 +38,7 @@ class Comment(models.Model):
 
     autor = models.CharField(max_length=32)
     text = models.CharField(max_length=256)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE, default=None)
 
 
 class User(models.Model):

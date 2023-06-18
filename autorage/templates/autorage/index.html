@@ -14,31 +14,11 @@
     <ul>
       {% for car in cars %}
         <li>
-          <div>
-            <h2 style="">{{car}}</h2>
-          </div>
-          <div>
-            {% for photo in car.carphoto_set.all %}
-              <span><img src="{{ photo.photo }}" alt="Тут должна быть машина"/></span>
-            {% endfor %}
-          </div>
-          <div>
-            {{ car.description }}
-          </div>
             <div>
-                {% for module in car.modules.all %}
-                    <div>
-                        <h4>{{module.type}}: {{module.name}}</h4>
-                    </div>
-                    <div>
-                        {% for photo in module.modulephoto_set.all %}
-                            <span><img src="{{photo.photo}}" alt="Тут должен быть модуль"/></span>
-                        {% endfor %}
-                    </div>
-                    <div>
-                        <p>{{module.description}}</p>
-                    </div>
-                {% endfor %}
+                <a href="{% url 'autorage:car' car.pk %}">
+                    <span><img src="{{ car.carphoto_set.all.0.photo }}" alt="Тут должна быть машина"/></span>
+                    <h2>{{car}}</h2>
+                </a>
             </div>
         </li>
       {% endfor %}

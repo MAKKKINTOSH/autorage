@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'autorage/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div>
+    <h1>{{car}}</h1>
+  </div>
+  <div>
+      <div>
+        {% for photo in car.carphoto_set.all %}
+          <span><img src="{{ photo.photo.url }}" alt="Тут должна быть машина"/></span>
+        {% endfor %}
+      </div>
+      <div>
+        {{ car.description }}
+      </div>
+        <div>
+            {% for module in car.modules.all %}
+                <div>
+                    <h4>{{module.type}}: {{module.name}}</h4>
+                </div>
+                <div>
+                    {% for photo in module.modulephoto_set.all %}
+                        <span><img src="{{photo.photo.url}}" alt="Тут должен быть модуль"/></span>
+                    {% endfor %}
+                </div>
+                <div>
+                    <p>{{module.description}}</p>
+                </div>
+            {% endfor %}
+        </div>
+  </div>
+</body>
+</html>
