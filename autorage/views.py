@@ -15,7 +15,6 @@ def indexViev(request: HttpRequest):
         context
     )
 
-
 class CarView(generic.DetailView):
 
     model = Car
