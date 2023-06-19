@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 
@@ -26,7 +28,8 @@ class Car(models.Model):
     brand = models.CharField(max_length=64)  # Toyota
     model = models.CharField(max_length=64)  # Mark 2
     generation = models.CharField(max_length=64)  # 5 generation 1984-1997, X70
-    description = models.TextField()  # description
+    description = models.TextField(blank=True)  # description
+    pub_date = models.DateTimeField(auto_now_add=True)
     modules = models.ManyToManyField(Module)
 
     def __str__(self):
@@ -47,18 +50,19 @@ class User(models.Model):
     login = models.CharField(max_length=32)
     password = models.CharField(max_length=32)
     photo = models.ImageField(upload_to="users")
-    reg_date = models.DateTimeField()
+    reg_date = models.DateTimeField(auto_now_add=True)
 
 
 class CarPhoto(models.Model):
     """Модель фотографии автомобиля"""
 
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to="autorage/media/cars")
+    photo = models.ImageField(upload_to="cars/%Y/%m/%d/")
+
 
 
 class ModulePhoto(models.Model):
     """Модель фотографии модуля"""
 
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to="autorage/media/modules")
+    photo = models.ImageField(upload_to="modules/%Y/%m/%d/")

@@ -9,11 +9,12 @@ img{
     border-radius: 20px;
 }
 body{
-    background: white url("images/rayan.jpg") no-repeat;
+    background: white url("images/btbackground.jpg") no-repeat;
     color: yellow;
 }
 h1{
     color: deeppink;
+    -webkit-text-stroke: 0.5px #FFFFFF;
 }
 a:link{
     color: yellow;
