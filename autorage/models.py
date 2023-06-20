@@ -1,5 +1,4 @@
 import datetime
-
 from django.db import models
 
 
@@ -22,28 +21,6 @@ class Module(models.Model):
         return f"{self.type}: {self.name}"
 
 
-class Car(models.Model):
-    """Модель статьи об автомобиле"""
-
-    brand = models.CharField(max_length=64)  # Toyota
-    model = models.CharField(max_length=64)  # Mark 2
-    generation = models.CharField(max_length=64)  # 5 generation 1984-1997, X70
-    description = models.TextField(blank=True)  # description
-    pub_date = models.DateTimeField(auto_now_add=True)
-    modules = models.ManyToManyField(Module)
-
-    def __str__(self):
-        return f"{self.brand} {self.model} {self.generation}"
-
-
-class Comment(models.Model):
-    """Модель комментария пользователя к статье"""
-
-    autor = models.CharField(max_length=32)
-    text = models.CharField(max_length=256)
-    car = models.ForeignKey(Car, on_delete=models.CASCADE, default=None)
-
-
 class User(models.Model):
     """Модель аккаунта пользователя"""
 
@@ -53,12 +30,53 @@ class User(models.Model):
     reg_date = models.DateTimeField(auto_now_add=True)
 
 
+class CarBrand(models.Model):
+    brand = models.CharField(max_length=31)
+
+    def __str__(self):
+        return self.brand
+
+
+class CarModel(models.Model):
+    model = models.CharField(max_length=31)
+
+    def __str__(self):
+        return self.model
+
+
+class Car(models.Model):
+    """Модель статьи об автомобиле"""
+
+    brand = models.ForeignKey(CarBrand, on_delete=models.SET_NULL, null=True)
+    model = models.ForeignKey(CarModel, on_delete=models.SET_NULL, null=True)
+    description = models.TextField(blank=True)  # description
+    pub_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
+    modules = models.ManyToManyField(Module)
+
+    # owner = models.ForeignKey(User, on_delete=models.SET_DEFAULT)
+
+    def __str__(self):
+        return f"{self.brand} {self.model}"
+
+
+class Comment(models.Model):
+    """Модель комментария пользователя к статье"""
+
+    # autor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    text = models.CharField(max_length=256)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.text
+
+
 class CarPhoto(models.Model):
     """Модель фотографии автомобиля"""
 
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to="cars/%Y/%m/%d/")
-
 
 
 class ModulePhoto(models.Model):

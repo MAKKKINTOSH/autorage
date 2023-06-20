@@ -25,5 +25,6 @@ class ModuleAdmin(admin.ModelAdmin):
 admin.site.register(ModuleType)
 admin.site.register(Module, ModuleAdmin)
 admin.site.register(Car, CarAdmin)
-admin.site.register(Comment)
 admin.site.register(User)
+admin.site.register(CarBrand)
+admin.site.register(CarModel)
