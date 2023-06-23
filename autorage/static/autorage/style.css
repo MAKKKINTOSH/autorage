@@ -1,3 +1,7 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 div{
     margin: 5px 0 0 5px;
 }
@@ -11,17 +15,45 @@ img{
 body{
     background: white url("images/btbackground.jpg") no-repeat;
     color: yellow;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
 }
 h1{
     color: deeppink;
     -webkit-text-stroke: 0.5px #FFFFFF;
 }
 a:link{
-    color: yellow;
+    color: blueviolet;
+    -webkit-text-stroke: 0.5px #FFFFFF;
 }
 a:hover{
     color: deeppink;
 }
 a:visited{
-    color: yellow;
+    color: blueviolet;
+    -webkit-text-stroke: 0.5px #FFFFFF;
+} 
+header{
+    display: flex;
+    justify-content: center;
+    background-color: rgba(53, 53, 53, 0.7);
+}
+
+.MainMenu div{
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 60px;
+}
+.MainMenu li{
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 60px;
+}
+.MainMenu a{
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 30px;
+}
+.MenuTitleSelected a{
+    color: blue;
 }

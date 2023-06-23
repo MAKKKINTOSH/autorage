@@ -31,6 +31,8 @@ class User(models.Model):
 
 
 class CarBrand(models.Model):
+    """Модель бренда автомобиля"""
+
     brand = models.CharField(max_length=31)
 
     def __str__(self):
@@ -38,6 +40,8 @@ class CarBrand(models.Model):
 
 
 class CarModel(models.Model):
+    """Модель модели автомобиля"""
+
     model = models.CharField(max_length=31)
 
     def __str__(self):

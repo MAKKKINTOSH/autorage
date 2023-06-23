@@ -10,8 +10,8 @@
       <span><img src="{{ photo.photo.url }}" alt="Тут должна быть машина"/></span>
     {% endfor %}
   </div>
-  <div>
-    {{ car.description }}
+  <div style="margin: 10px 0 20px 10px;">
+    {{ car.description | linebreaks }}
   </div>
     <div>
         {% for module in car.modules.all %}
@@ -24,7 +24,7 @@
                 {% endfor %}
             </div>
             <div>
-                <p>{{module.description}}</p>
+                <p>{{module.description | linebreaks}}</p>
             </div>
         {% endfor %}
     </div>
