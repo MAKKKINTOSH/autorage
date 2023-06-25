@@ -5,7 +5,7 @@ from .models import Car, CarPhoto
 from django.views import generic
 from config import menu_titles
 from random import shuffle
-
+from .forms import AddPostFrom
 
 def indexView(request: HttpRequest):
 
@@ -34,6 +34,16 @@ def profileView(request, context):
 
 
 def makePublicationView(request, context):
+
+    if request.method == 'POST':
+        form = AddPostFrom(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = AddPostFrom()
+
+    context['form'] = form
+
     return render(
         request,
         "autorage/add_post.html",

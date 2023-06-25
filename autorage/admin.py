@@ -16,6 +16,8 @@ class CarAdmin(admin.ModelAdmin):
     """Класс для переработки интерфейса добавления автомобиля"""
 
     inlines = [AddCarPhotos]
+    list_display = ('brand', 'model')
+    search_fields = ('brand__brand', 'model__model')
 
 class ModuleAdmin(admin.ModelAdmin):
     """Класс для переработки интерфейса добавления модуля"""

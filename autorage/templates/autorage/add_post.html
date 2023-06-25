@@ -1,5 +1,17 @@
 {% extends 'autorage/base.html' %}
 
 {% block content %}
-<h1>ТУТ БУДЕТ ДОБАВЛЕНИЕ ПОСТОВ</h1>
+<div>
+    <div>
+        <h1>Добавить публикацию</h1>
+    </div>
+    <div>
+        <form action="{% url 'autorage:main' menu_title='make_publication' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Опубликовать</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
