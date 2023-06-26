@@ -79,12 +79,12 @@ from dbdata import *
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': host,
-        'USER': user,
-        'PASSWORD': password,
-        'NAME': dbname,
-        'PORT': port,
+        'ENGINE': 'django.db.backends.sqlite3',
+        #'HOST': host,
+        #'USER': user,
+        #'PASSWORD': password,
+        'NAME': BASE_DIR / 'db.sqlite3',
+        #'PORT': port,
     }
 }
 
