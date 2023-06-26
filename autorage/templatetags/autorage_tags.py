@@ -1,11 +1,12 @@
-import datetime
-
 from django import template
+import config
 from autorage.models import Car
 
-tags_register = template.Library()
+register = template.Library()
 
-@tags_register.inclusion_tag('autorage/main_menu_panel.html')
-def show_dateline():
-    today = datetime.datetime.now()
-    return {""}
+@register.inclusion_tag('autorage/main_menu_panel.html')
+def show_menu_panel(selected_title):
+    return{
+        'selected_title': selected_title,
+        'menu_titles': config.menu_titles
+    }
