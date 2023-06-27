@@ -6,8 +6,8 @@ from django.views import generic
 from config import menu_titles
 from .forms import AddPostForm
 
-def indexView(request: HttpRequest):
 
+def indexView(request: HttpRequest):
     pictures = CarPhoto.objects.all().order_by('?')
 
     context = {
@@ -32,12 +32,34 @@ def profileView(request, context):
 
 
 def makePublicationView(request, context):
-
     if request.method == 'POST':
-        form = AddPostForm(request.POST)
+        form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
-            #form.save()
-            return redirect('autorage:index')
+
+            vals = form.cleaned_data
+            brand = form.cleaned_data['brand']
+            model = form.cleaned_data['model']
+            description = form.cleaned_data['description']
+            modules = form.cleaned_data['modules']
+            images = form.cleaned_data['image']
+
+            try:
+                car = Car.objects.create(
+                    brand=brand,
+                    model=model,
+                    description=description,
+                )
+                car.modules.set(modules)
+                car.carphoto_set.create(photo=images)
+
+            except Exception as e:
+                form.add_error(None, "Публикация не создана из-за возникшей ошибки")
+                print(f"Ошибка: {e}")
+            else:
+                return redirect('autorage:succes_post_addition')
+
+        else:
+            print(form.errors)
 
     else:
         form = AddPostForm()
@@ -78,12 +100,19 @@ def searchMainPage(request: HttpRequest, title):
         return profileView(request, context)
 
 
-def mainView(requet: HttpRequest, menu_title):
+def mainView(request: HttpRequest, menu_title):
     if menu_title in menu_titles:
-        return searchMainPage(requet, menu_title)
+        return searchMainPage(request, menu_title)
 
     else:
         raise Http404()
+
+
+def PostDoneView(request: HttpRequest):
+    return render(request,
+                  'autorage/post_done.html',
+                  {}
+                  )
 
 
 class CarView(generic.DetailView):
