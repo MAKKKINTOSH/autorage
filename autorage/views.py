@@ -1,11 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, Http404, HttpResponseRedirect
 from django.urls import reverse
 from .models import Car, CarPhoto
 from django.views import generic
 from config import menu_titles
-from random import shuffle
-from .forms import AddPostFrom
+from .forms import AddPostForm
 
 def indexView(request: HttpRequest):
 
@@ -16,7 +15,6 @@ def indexView(request: HttpRequest):
         'selected_title': 'menu',
         'pictures': pictures,
     }
-    print(pictures)
 
     return render(
         request,
@@ -36,11 +34,13 @@ def profileView(request, context):
 def makePublicationView(request, context):
 
     if request.method == 'POST':
-        form = AddPostFrom(request.POST)
+        form = AddPostForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            #form.save()
+            return redirect('autorage:index')
+
     else:
-        form = AddPostFrom()
+        form = AddPostForm()
 
     context['form'] = form
 
