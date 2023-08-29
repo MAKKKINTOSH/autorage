@@ -6,9 +6,7 @@
 </div>
 <div>
   <div>
-    {% for photo in car.carphoto_set.all %}
-      <span><img src="{{ photo.photo.url }}" alt="Тут должна быть машина"/></span>
-    {% endfor %}
+      <span><img src="{{ car.photo.url }}" alt="Тут должна быть машина"/></span>
   </div>
   <div style="margin: 10px 0 20px 10px;">
     {{ car.description | linebreaks }}
@@ -19,9 +17,7 @@
                 <h4>{{module.type}}: {{module.name}}</h4>
             </div>
             <div>
-                {% for photo in module.modulephoto_set.all %}
-                    <span><img src="{{photo.photo.url}}" alt="Тут должен быть модуль"/></span>
-                {% endfor %}
+                    <span><img src="{{module.photo.url}}" alt="Тут должен быть модуль"/></span>
             </div>
             <div>
                 <p>{{module.description | linebreaks}}</p>

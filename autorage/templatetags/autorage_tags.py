@@ -1,6 +1,5 @@
 from django import template
-import config
-from autorage.models import Car
+from autorage import utils
 
 register = template.Library()
 
@@ -8,5 +7,5 @@ register = template.Library()
 def show_menu_panel(selected_title):
     return{
         'selected_title': selected_title,
-        'menu_titles': config.menu_titles
+        'menu_titles': utils.menu_titles
     }
