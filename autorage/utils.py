@@ -9,8 +9,9 @@ menu_titles = {
 class DataMixin:
 	"""Базовый миксин для классовых представлений"""
 
-	def get_menu_context(self,is_authenticated: bool, **kwargs):
-		context = kwargs
+	def get_menu_context(self,is_authenticated: bool, selected_title = 'none'):
+		context = {}
+		context['selected_title'] = selected_title
 		context['menu_titles'] = menu_titles.copy()
 
 		if is_authenticated:
