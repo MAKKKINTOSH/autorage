@@ -1,5 +1,11 @@
 {% extends 'autorage/base.html' %}
 
 {% block content %}
-<h1>ТУТ БУДЕТ АУТЕНТИФИКАЦИЯ</h1>
+<div>
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Войти</button>
+	</form>
+</div>
 {% endblock %}

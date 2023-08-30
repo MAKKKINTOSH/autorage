@@ -1,13 +1,11 @@
 from typing import Any, Dict
-from django.db.models.query import QuerySet
-from django.shortcuts import render, redirect
-from django.http import HttpRequest, Http404, HttpResponseRedirect
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from .models import Car
 from django.views import generic
 from .utils import menu_titles, DataMixin
-from .forms import AddPostForm
+from .forms import AddPostForm, AutorageCreateUserForm
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import AuthenticationForm
 
 class IndexView(DataMixin, generic.ListView):
     """Представление главной страницы"""
@@ -73,7 +71,9 @@ class PublicationsView(DataMixin, generic.ListView):
 class RegistrationView(DataMixin, generic.CreateView):
     """Представление страницы регистрации"""
 
+    form_class = AutorageCreateUserForm
     template_name = 'autorage/registration.html'
+    success_url = reverse_lazy('autorage:index')
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         
@@ -82,9 +82,10 @@ class RegistrationView(DataMixin, generic.CreateView):
         default_context = self.get_menu_context(self.request.user.is_authenticated, selected_title='registration')
         return dict(list(context.items()) + list(default_context.items()))
 
-class AuthenticationView(DataMixin, generic.edit.FormView):
+class AuthenticationView(DataMixin, LoginView):
     """Представление страницы входа в профиль"""
 
+    form_class = AuthenticationForm
     template_name = 'autorage/authentication.html'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -93,6 +94,9 @@ class AuthenticationView(DataMixin, generic.edit.FormView):
         context['title'] = 'Войти'
         default_context = self.get_menu_context(self.request.user.is_authenticated, selected_title='authentication')
         return dict(list(context.items()) + list(default_context.items()))
+    
+    def get_success_url(self) -> str:
+        return reverse_lazy('autorage:index')
 
 class ProfileView(DataMixin, generic.DetailView):
     """Представление страницы профиля"""

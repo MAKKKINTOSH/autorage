@@ -23,13 +23,13 @@ class Module(models.Model):
         return f"{self.type}: {self.name}"
 
 
-class User(models.Model):
-    """Модель аккаунта пользователя"""
+# class User(models.Model):
+#     """Модель аккаунта пользователя"""
 
-    login = models.CharField(max_length=32)
-    password = models.CharField(max_length=32)
-    photo = models.ImageField(upload_to="users")
-    reg_date = models.DateTimeField(auto_now_add=True)
+#     login = models.CharField(max_length=32)
+#     password = models.CharField(max_length=32)
+#     photo = models.ImageField(upload_to="users")
+#     reg_date = models.DateTimeField(auto_now_add=True)
 
 
 class CarBrand(models.Model):
