@@ -8,7 +8,7 @@
         <li>
             <div>
                 <a href="{% url 'autorage:car' car.pk %}">
-                    <span><img src="{{ car.carphoto_set.all.0.photo.url }}" alt="Тут должна быть машина"/></span>
+                    <span><img src="{{ car.photo.url }}" alt="Тут должна быть машина"/></span>
                     <h2>{{car}}</h2>
                 </a>
             </div>

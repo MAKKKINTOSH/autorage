@@ -17,6 +17,7 @@ class Module(models.Model):
     type = models.ForeignKey(ModuleType, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
     description = models.TextField()
+    photo = models.ImageField(upload_to="modules/%Y/%m/%d/")
 
     def __str__(self):
         return f"{self.type}: {self.name}"
@@ -80,6 +81,7 @@ class Car(models.Model):
         Module,
         verbose_name='Установленные модули'
     )
+    photo = models.ImageField(upload_to="cars/%Y/%m/%d/")
 
     # owner = models.ForeignKey(User, on_delete=models.SET_DEFAULT)
 
@@ -106,15 +108,15 @@ class Comment(models.Model):
         return self.text
 
 
-class CarPhoto(models.Model):
-    """Модель фотографии автомобиля"""
+# class CarPhoto(models.Model):
+#     """Модель фотографии автомобиля"""
 
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to="cars/%Y/%m/%d/")
+#     car = models.ForeignKey(Car, on_delete=models.CASCADE)
+#     photo = models.ImageField(upload_to="cars/%Y/%m/%d/")
 
 
-class ModulePhoto(models.Model):
-    """Модель фотографии модуля"""
+# class ModulePhoto(models.Model):
+#     """Модель фотографии модуля"""
 
-    module = models.ForeignKey(Module, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to="modules/%Y/%m/%d/")
+#     module = models.ForeignKey(Module, on_delete=models.CASCADE)
+#     photo = models.ImageField(upload_to="modules/%Y/%m/%d/")
