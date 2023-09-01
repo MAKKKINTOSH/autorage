@@ -1,7 +1,6 @@
-import datetime
 from django.db import models
 from django.urls import reverse
-
+from django.contrib.auth.models import User
 
 class ModuleType(models.Model):
     """Модель типа модуля"""
@@ -99,7 +98,7 @@ class Car(models.Model):
 class Comment(models.Model):
     """Модель комментария пользователя к статье"""
 
-    # autor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     text = models.CharField(max_length=256)
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)

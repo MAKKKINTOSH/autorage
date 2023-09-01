@@ -1,5 +1,8 @@
 {% extends 'autorage/base.html' %}
 
 {% block content %}
-<h1>ТУТ БУДЕТ ПРОФИЛЬ</h1>
+<div class="profile">
+	{{ user.username }}<br>
+	{{ user.date_joined }}
+</div>
 {% endblock %}

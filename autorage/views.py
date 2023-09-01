@@ -1,11 +1,13 @@
 from typing import Any, Dict
+from django.db import models
 from django.urls import reverse_lazy
-from .models import Car
+from .models import Car, Comment
 from django.views import generic
 from .utils import menu_titles, DataMixin
 from .forms import AddPostForm, AutorageCreateUserForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 
 class IndexView(DataMixin, generic.ListView):
     """Представление главной страницы"""
@@ -19,7 +21,7 @@ class IndexView(DataMixin, generic.ListView):
 
         context = super().get_context_data(**kwargs)
         context['title'] = 'Главная'
-        default_context = self.get_menu_context(self.request.user.is_authenticated, selected_title='')
+        default_context = self.get_menu_context(self.request.user, selected_title='')
         return dict(list(context.items()) + list(default_context.items()))
 
 
@@ -31,9 +33,12 @@ class CarView(DataMixin, generic.DetailView):
     
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
 
+        this_car = self.get_object()
+
         context = super().get_context_data(**kwargs)
-        context['title'] = self.get_object()
-        default_context = self.get_menu_context(self.request.user.is_authenticated)
+        context['title'] = this_car
+        context['comments'] = Comment.objects.filter(car=this_car)
+        default_context = self.get_menu_context(self.request.user)
         return dict(list(context.items()) + list(default_context.items()))
 
 
@@ -48,7 +53,7 @@ class MakePublicationView(DataMixin, generic.CreateView):
 
         context = super().get_context_data(**kwargs)
         context['title'] = 'Опубликовать'
-        default_context = self.get_menu_context(self.request.user.is_authenticated, selected_title='make_publication')
+        default_context = self.get_menu_context(self.request.user, selected_title='make_publication')
         return dict(list(context.items()) + list(default_context.items()))
 
 
@@ -65,7 +70,7 @@ class PublicationsView(DataMixin, generic.ListView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
 
         context = super().get_context_data(**kwargs)
-        default_context = self.get_menu_context(self.request.user.is_authenticated, selected_title='publications')
+        default_context = self.get_menu_context(self.request.user, selected_title='publications')
         return dict(list(context.items()) + list(default_context.items()))
 
 class RegistrationView(DataMixin, generic.CreateView):
@@ -79,7 +84,7 @@ class RegistrationView(DataMixin, generic.CreateView):
         
         context = super().get_context_data(**kwargs)
         context['title'] = 'Регистрация'
-        default_context = self.get_menu_context(self.request.user.is_authenticated, selected_title='registration')
+        default_context = self.get_menu_context(self.request.user, selected_title='registration')
         return dict(list(context.items()) + list(default_context.items()))
 
 class AuthenticationView(DataMixin, LoginView):
@@ -92,7 +97,7 @@ class AuthenticationView(DataMixin, LoginView):
 
         context = super().get_context_data(**kwargs)
         context['title'] = 'Войти'
-        default_context = self.get_menu_context(self.request.user.is_authenticated, selected_title='authentication')
+        default_context = self.get_menu_context(self.request.user, selected_title='authentication')
         return dict(list(context.items()) + list(default_context.items()))
     
     def get_success_url(self) -> str:
@@ -102,10 +107,12 @@ class ProfileView(DataMixin, generic.DetailView):
     """Представление страницы профиля"""
 
     template_name = 'autorage/profile.html'
+    model = User
+    context_object_name = 'user'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
 
         context = super().get_context_data(**kwargs)
         context['title'] = 'Профиль'
-        default_context = self.get_menu_context(self.request.user.is_authenticated, selected_title='profile')
+        default_context = self.get_menu_context(self.request.user, selected_title='profile')
         return dict(list(context.items()) + list(default_context.items()))

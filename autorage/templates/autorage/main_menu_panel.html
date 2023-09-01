@@ -6,12 +6,30 @@
       <div>
         <ul>
 {% for title, text in menu_titles.items %}
-{% if title == selected_title %}
+  {% if title == selected_title %}
           <li class="MenuTitleSelected"><a href="/{{title}}"><b>{{text}}</b></a></li>
-{% else %}
+  {% else %}
           <li><a href="/{{title}}"><b>{{text}}</b></a></li>
-{% endif %}
+  {% endif %}
 {% endfor %}
+{% if is_auth %}
+  {% if selected_title == 'profile' %}
+          <li class="MenuTitleSelected"><a href="/profile/{{ user.pk }}"><b>Профиль</b></a></li>
+  {% else %}
+          <li><a href="/profile/{{ user.pk }}"><b>Профиль</b></a></li>
+  {% endif %}
+{% else %}
+{% if selected_title == 'authentication' %}
+          <li class="MenuTitleSelected"><a href="/authentication"><b>Войти</b></a></li>
+  {% else %}
+          <li><a href="/authentication"><b>Войти</b></a></li>
+  {% endif %}
+  {% if selected_title == 'registration' %}
+          <li class="MenuTitleSelected"><a href="registration"><b>Регистрация</b></a></li>
+  {% else %}
+          <li><a href="/registration"><b>Регистрация</b></a></li>
+  {% endif %}
+{% endif %}
         </ul>
       </div>
     </div>

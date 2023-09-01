@@ -5,12 +5,12 @@
     <h1>{{car}}</h1>
 </div>
 <div>
-  <div>
-      <span><img src="{{ car.photo.url }}" alt="Тут должна быть машина"/></span>
-  </div>
-  <div style="margin: 10px 0 20px 10px;">
-    {{ car.description | linebreaks }}
-  </div>
+    <div>
+        <span><img src="{{ car.photo.url }}" alt="Тут должна быть машина"/></span>
+    </div>
+    <div style="margin: 10px 0 20px 10px;">
+        {{ car.description | linebreaks }}
+    </div>
     <div>
         {% for module in car.modules.all %}
             <div>
@@ -23,6 +23,16 @@
                 <p>{{module.description | linebreaks}}</p>
             </div>
         {% endfor %}
+    </div>
+    <div class="comments">
+        <P><br><b>Комментарии</b></P><br>
+        {% if comments %}
+        <ul>
+            {% for c in comments %}
+            <li class="comment">{{ c.author }} | {{ c.text }}<br></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
