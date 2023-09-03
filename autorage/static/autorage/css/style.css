@@ -13,7 +13,8 @@ img{
     border-radius: 20px;
 }
 body{
-    background: white url("images/carbackground.jpg") no-repeat;
+    background: black url("../images/carbackground.jpg") no-repeat;
+    background-attachment: fixed;
     color: yellow;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
