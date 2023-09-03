@@ -101,3 +101,16 @@ header{
     border-radius: 0.25rem;
     background-color: var(--black);
 }
+.car-container{
+    background-color: var(--black);
+    border: 1px solid var(--pink);
+    border-radius: 0.25rem;
+}
+.car-photo{
+    margin: 20px 20px 20px 20px;
+}
+.module-container{
+    background-color: var(--black);
+    border: 1px solid var(--violet);
+    border-radius: 0.25rem;
+}
