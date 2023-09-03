@@ -106,6 +106,7 @@ class AutorageAuthenticationForm(AuthenticationForm):
 class AddCommentForm(forms.Form):
     
     text = forms.CharField(
+        label='',
         max_length=255,
         widget=forms.Textarea(
             attrs={

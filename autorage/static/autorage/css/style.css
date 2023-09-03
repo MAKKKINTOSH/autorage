@@ -5,6 +5,11 @@
     --black: #1d1d1d;
     --brown: #ccc;
 }
+.wrapper{
+	max-width: 80%;
+	padding: 0;
+	margin: 0 auto;
+}
 *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -31,18 +36,21 @@ body{
 }
 h1{
     color: var(--pink);
-    -webkit-text-stroke: 0.3px #FFFFFF;
+    /* -webkit-text-stroke: 0.1px var(--brown); */
+}
+h3,h4{
+    color: var(--violet);
 }
 a:link{
     color: var(--violet);
-    -webkit-text-stroke: 0.3px #FFFFFF;
+    /* -webkit-text-stroke: 0.1px var(--brown); */
 }
 a:hover{
     color: var(--pink);
 }
 a:visited{
     color: var(--violet);
-    -webkit-text-stroke: 0.3px #FFFFFF;
+    /* -webkit-text-stroke: 0.1px var(--brown); */
 } 
 header{
     display: flex;
@@ -72,15 +80,12 @@ header{
     color: var(--blue);
 }
 
-.comment{
-
-}
 .input-box{
     display: block;
     margin: 0;
     color: var(--pink);
     background-color: var(--black);
-    border: 3px solid var(--pink);
+    border: 1px solid var(--pink);
     border-radius: 0.25rem;
 }
 .input-button{
@@ -88,6 +93,11 @@ header{
     margin: 0;
     color: var(--pink);
     background-color: var(--black);
-    border: 3px solid var(--pink);
+    border: 1px solid var(--pink);
     border-radius: 0.25rem;
+}
+.comment{
+    border: 1px solid var(--pink);
+    border-radius: 0.25rem;
+    background-color: var(--black);
 }

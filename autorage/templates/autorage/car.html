@@ -27,17 +27,22 @@
             {% endfor %}
         </div>
         <div class="comments">
-            <P><br><b>Комментарии</b></P><br>
-            <P><br>Прокомментируйте:</P><br>
+            <P><h3>Комментарии</h3></P>
+            {% if is_auth %}
             <form action="{% url 'autorage:car' pk=car.pk %}" method="post">
                 {% csrf_token %}
                 {{ comment_form|crispy }}
                 <button type="submit" class="input-button">Комментировать</button><br>
             </form>
+            {% else %}
+            <h3>Войдите, чтобы оставить комментарий</h3>
+            {% endif %}
             {% if comments %}
-            <ul>
+            <ul class="comment" >
                 {% for c in comments %}
-                <li class="comment">{{ c.author }} | {{ c.text }}<br></li>
+                <div>
+                    <li>{{ c.author }} | {{ c.text }}<br></li>
+                </div>
                 {% endfor %}
             </ul>
             {% endif %}
