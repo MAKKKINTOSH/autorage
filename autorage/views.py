@@ -1,13 +1,17 @@
 from typing import Any, Dict
-from django.db import models
 from django.urls import reverse_lazy
 from .models import Car, Comment
 from django.views import generic
 from .utils import menu_titles, DataMixin
-from .forms import AddPostForm, AutorageCreateUserForm
+from .forms import *
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.http import HttpRequest
+from autorage.utils import menu_titles
+import re
+
 
 class IndexView(DataMixin, generic.ListView):
     """Представление главной страницы"""
@@ -40,7 +44,51 @@ class CarView(DataMixin, generic.DetailView):
         context['comments'] = Comment.objects.filter(car=this_car)
         default_context = self.get_menu_context(self.request.user)
         return dict(list(context.items()) + list(default_context.items()))
+    
 
+def carView(request: HttpRequest, pk: int):
+
+    car = Car.objects.get(pk=pk)
+
+    context = {}
+    context['menu_titles'] = menu_titles.copy()
+    context['is_auth'] = request.user.is_authenticated
+    context['selected_title'] = 'none'
+    context['car'] = car
+    context['comments'] = Comment.objects.filter(car=car)
+
+    if request.method == 'POST':
+        form = AddCommentForm(request.POST)
+        if form.is_valid():
+            
+            print(form.cleaned_data)
+            text = form.cleaned_data['text']
+            author = request.user
+            
+            try:
+                Comment.objects.create(
+                    text=text,
+                    author=author,
+                    car=car
+                )
+            except Exception as e:
+                form.add_error(None, "Публикация не создана из-за возникшей ошибки")
+                print(f"Ошибка: {e}")
+            else:
+                return redirect(car)
+
+        else:
+            print(form.errors)
+    else:
+        form = AddCommentForm()
+
+    context['comment_form'] = form
+
+    return render(
+        request,
+        'autorage/car.html',
+        context
+    )
 
 class MakePublicationView(DataMixin, generic.CreateView):
     """Представление страницы создания публикации"""

@@ -10,5 +10,6 @@ urlpatterns = [
     path('registration', views.RegistrationView.as_view(), name='registration'),
     path('authentication', views.AuthenticationView.as_view(), name='authentication'),
     path('profile/<int:pk>', views.ProfileView.as_view(), name='profile'),
-    path('car/<int:pk>', views.CarView.as_view(), name="car"),
+    # path('car/<int:pk>', views.CarView.as_view(), name="car"),
+    path('car/<int:pk>', views.carView, name="car"),
 ]

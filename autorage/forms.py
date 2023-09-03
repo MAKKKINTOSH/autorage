@@ -50,15 +50,28 @@ class AutorageCreateUserForm(UserCreationForm):
         model = User
         fields = ('username', 'password1', 'password2')
 
-class AddCommentForm(forms.ModelForm):
-    class Meta:
-        Model = Comment
-        fields = ['text']
-        widgets = {
-            'text': forms.Textarea(
-                attrs={
-                    'cols': 30,
-                    'rows': 3
-                }
-            )
-        }
+# class AddCommentForm(forms.ModelForm):
+
+#     class Meta:
+#         Model = Comment
+#         fields = ['text']
+#         widgets = {
+#             'text': forms.Textarea(
+#                 attrs={
+#                     'cols': 30,
+#                     'rows': 3
+#                 }
+#             )
+#         }
+
+class AddCommentForm(forms.Form):
+    
+    text = forms.CharField(
+        max_length=255,
+        widget=forms.Textarea(
+            attrs={
+            'cols': 30,
+            'rows': 3
+            }
+        )
+    )

@@ -26,6 +26,12 @@
     </div>
     <div class="comments">
         <P><br><b>Комментарии</b></P><br>
+        <P><br>Прокомментируйте:</P><br>
+        <form action="{% url 'autorage:car' pk=car.pk %}" method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">да</button><br>
+        </form>
         {% if comments %}
         <ul>
             {% for c in comments %}
