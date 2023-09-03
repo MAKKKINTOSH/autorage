@@ -1,11 +1,12 @@
 {% extends 'autorage/base.html' %}
 
 {% block content %}
+{% load crispy_forms_tags %}
 <div>
 	<form method="post">
 		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit">Регистрация</button>
+		{{ form|crispy }}
+		<button type="submit" class="input-button">Регистрация</button>
 	</form>
 </div>
 {% endblock %}

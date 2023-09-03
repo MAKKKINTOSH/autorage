@@ -80,7 +80,10 @@ class Car(models.Model):
         Module,
         verbose_name='Установленные модули'
     )
-    photo = models.ImageField(upload_to="cars/%Y/%m/%d/")
+    photo = models.ImageField(
+        upload_to="cars/%Y/%m/%d/",
+        verbose_name='Фото'
+        )
 
     # owner = models.ForeignKey(User, on_delete=models.SET_DEFAULT)
 
