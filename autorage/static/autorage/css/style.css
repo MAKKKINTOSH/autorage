@@ -1,3 +1,18 @@
+:root{
+    --pink: #e6a8ce;
+    --violet: #9faadf;
+    --blue: #196cd3;
+    --black: #1d1d1d;
+    --brown: #ccc;
+}
+.wrapper{
+	max-width: 80%;
+	padding: 0;
+	margin: 0 auto;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
 *{
     margin: 0;
     padding: 0;
@@ -15,31 +30,37 @@ img{
 body{
     background: black url("../images/carbackground.jpg") no-repeat;
     background-attachment: fixed;
-    color: yellow;
+    color: var(--pink);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
 }
 h1{
-    color: deeppink;
-    -webkit-text-stroke: 0.5px #FFFFFF;
+    color: var(--pink);
+    /* -webkit-text-stroke: 0.1px var(--brown); */
+}
+h3,h4{
+    color: var(--violet);
 }
 a:link{
-    color: blueviolet;
-    -webkit-text-stroke: 0.5px #FFFFFF;
+    color: var(--violet);
+    /* -webkit-text-stroke: 0.1px var(--brown); */
 }
 a:hover{
-    color: deeppink;
+    color: var(--pink);
 }
 a:visited{
-    color: blueviolet;
-    -webkit-text-stroke: 0.5px #FFFFFF;
+    color: var(--violet);
+    /* -webkit-text-stroke: 0.1px var(--brown); */
 } 
 header{
     display: flex;
     justify-content: center;
     background-color: rgba(53, 53, 53, 0.7);
 }
-
+.background-black{
+    background: var(--black) no-repeat;
+    background-attachment: fixed;
+}
 .MainMenu div{
     vertical-align: middle;
     display: inline-block;
@@ -56,5 +77,40 @@ header{
     font-size: 30px;
 }
 .MenuTitleSelected a{
-    color: blue;
+    color: var(--blue);
+}
+
+.input-box{
+    display: block;
+    margin: 0;
+    color: var(--pink);
+    background-color: var(--black);
+    border: 1px solid var(--pink);
+    border-radius: 0.25rem;
+}
+.input-button{
+    display: block;
+    margin: 0;
+    color: var(--pink);
+    background-color: var(--black);
+    border: 1px solid var(--pink);
+    border-radius: 0.25rem;
+}
+.comment{
+    border: 1px solid var(--pink);
+    border-radius: 0.25rem;
+    background-color: var(--black);
+}
+.car-container{
+    background-color: var(--black);
+    border: 1px solid var(--pink);
+    border-radius: 0.25rem;
+}
+.car-photo{
+    margin: 20px 20px 20px 20px;
+}
+.module-container{
+    background-color: var(--black);
+    border: 1px solid var(--violet);
+    border-radius: 0.25rem;
 }

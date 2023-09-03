@@ -1,6 +1,6 @@
 from django import forms
 from .models import *
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
 # class AddPostForm(forms.Form):
@@ -28,10 +28,18 @@ from django.contrib.auth.models import User
 
 class AddPostForm(forms.ModelForm):
 
+    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['brand'].empty_label = 'Выберите производителя'
         self.fields['model'].empty_label = 'Выберите модель'
+
+        self.fields['brand'].widget.attrs.update({'class':'input-box'})
+        self.fields['model'].widget.attrs.update({'class':'input-box'})
+        self.fields['description'].widget.attrs.update({'class':'input-box'})
+        self.fields['modules'].widget.attrs.update({'class':'input-box'})
+        self.fields['photo'].widget.attrs.update({'class':'input-box'})
 
     class Meta:
         model = Car
@@ -40,38 +48,71 @@ class AddPostForm(forms.ModelForm):
             'description': forms.Textarea(
                 attrs={
                     'cols': 60,
-                    'rows': 14
+                    'rows': 14,
                 }
             )
         }
 
 class AutorageCreateUserForm(UserCreationForm):
+
+    username = forms.CharField(
+        label='Логин',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input-box'
+            }
+        )
+    )
+    password1 = forms.CharField(
+        label='Пароль',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input-box'
+            }
+        )
+    )
+    password2 = forms.CharField(
+        label='Подтвердите пароль',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input-box'
+            }
+        )
+    )
+
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2')
+        fields = ['username', 'password1', 'password2']
 
-# class AddCommentForm(forms.ModelForm):
+class AutorageAuthenticationForm(AuthenticationForm):
 
-#     class Meta:
-#         Model = Comment
-#         fields = ['text']
-#         widgets = {
-#             'text': forms.Textarea(
-#                 attrs={
-#                     'cols': 30,
-#                     'rows': 3
-#                 }
-#             )
-#         }
+    username = forms.CharField(
+        label='Логин',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input-box'
+            }
+        )
+    )
+    password = forms.CharField(
+        label='Пароль',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input-box'
+            }
+        )
+    )
 
 class AddCommentForm(forms.Form):
     
     text = forms.CharField(
+        label='',
         max_length=255,
         widget=forms.Textarea(
             attrs={
             'cols': 30,
-            'rows': 3
+            'rows': 3,
+            'class': 'input-box'
             }
         )
     )

@@ -138,7 +138,7 @@ class RegistrationView(DataMixin, generic.CreateView):
 class AuthenticationView(DataMixin, LoginView):
     """Представление страницы входа в профиль"""
 
-    form_class = AuthenticationForm
+    form_class = AutorageAuthenticationForm
     template_name = 'autorage/authentication.html'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:

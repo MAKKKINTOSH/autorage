@@ -1,6 +1,7 @@
 {% extends 'autorage/base.html' %}
 
 {% block content %}
+{% load crispy_forms_tags %}
 <div>
     <div>
         <h1>Добавить публикацию</h1>
@@ -8,8 +9,8 @@
     <div>
         <form action="{% url 'autorage:make_publication' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Опубликовать</button>
+            {{ form|crispy }}
+            <button type="submit" class="input-button">Опубликовать</button>
         </form>
     </div>
 </div>

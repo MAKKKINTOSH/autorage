@@ -1,44 +1,63 @@
 {% extends 'autorage/base.html' %}
 
 {% block content %}
-<div>
-    <h1>{{car}}</h1>
+{% load crispy_forms_tags %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div class="container car-container car-header">
+				<h1>{{ car }}</h1>
+				<div class="container car-photo">
+					<img src="{{ car.photo.url }}" alt="Тут должна быть машина"/>
+				</div>
+			</div>
+			<div class="container car-container car-description">
+				{{ car.description | linebreaks }}
+			</div>
+		</div>
+		<div class="col car-container ">
+			<div class="containercar-comments">
+				<P><h3>Комментарии</h3></P>
+				{% if is_auth %}
+				<form action="{% url 'autorage:car' pk=car.pk %}" method="post">
+					{% csrf_token %}
+					{{ comment_form|crispy }}
+					<button type="submit" class="input-button">Комментировать</button><br>
+				</form>
+				{% else %}
+				<h3>Войдите, чтобы оставить комментарий</h3>
+				{% endif %}
+				{% if comments %}
+				<ul>
+					{% for c in comments %}
+					<div>
+						<li>{{ c.author }} | {{ c.text }}<br></li>
+					</div>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<div class="row text-center">
+		<div class="col">
+			<div class="container car-container car-modules">
+				{% for module in car.modules.all %}
+					<div class="row module-container">
+						<div class="col">
+							<div class="car-photo">
+								<img class="module-photo" src="{{module.photo.url}}" alt="Тут должен быть модуль"/>
+							</div>
+						</div>
+						<div class="col">
+							<h4>{{module.type}}: {{module.name}}</h4>
+							<p>{{module.description | linebreaks}}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 </div>
-<div>
-    <div>
-        <span><img src="{{ car.photo.url }}" alt="Тут должна быть машина"/></span>
-    </div>
-    <div style="margin: 10px 0 20px 10px;">
-        {{ car.description | linebreaks }}
-    </div>
-    <div>
-        {% for module in car.modules.all %}
-            <div>
-                <h4>{{module.type}}: {{module.name}}</h4>
-            </div>
-            <div>
-                    <span><img src="{{module.photo.url}}" alt="Тут должен быть модуль"/></span>
-            </div>
-            <div>
-                <p>{{module.description | linebreaks}}</p>
-            </div>
-        {% endfor %}
-    </div>
-    <div class="comments">
-        <P><br><b>Комментарии</b></P><br>
-        <P><br>Прокомментируйте:</P><br>
-        <form action="{% url 'autorage:car' pk=car.pk %}" method="post">
-            {% csrf_token %}
-            {{ comment_form.as_p }}
-            <button type="submit">да</button><br>
-        </form>
-        {% if comments %}
-        <ul>
-            {% for c in comments %}
-            <li class="comment">{{ c.author }} | {{ c.text }}<br></li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </div>
-</div>
+
 {% endblock %}
